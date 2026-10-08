@@ -1,5 +1,7 @@
 package game;
 
+import static game.Main.direction;
+
 public class Map
 {
     private enum mapElement
@@ -15,6 +17,17 @@ public class Map
     {
         tiles = new LinkedChain<>();
         // TODO
+    }
+
+    public boolean hasWon() {
+        // TODO
+        return false;
+    }
+
+    public boolean canMove(Coordinate start, direction dir)
+    {
+        // TODO
+        return false;
     }
 
 

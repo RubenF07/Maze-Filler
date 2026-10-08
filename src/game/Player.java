@@ -1,15 +1,9 @@
 package game;
 
+import static game.Main.direction;
+
 public class Player
 {
-    private enum direction
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT;
-    }
-
     private LinkedChain<Coordinate> moves;
 
     public Player()
