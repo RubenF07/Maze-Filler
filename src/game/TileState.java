@@ -1,17 +1,23 @@
 package game;
 
-public class TileState {
+public class TileState
+{
     private boolean state;
-    
-    public TileState() {
+
+    public TileState()
+    {
         state = false;
     }
-    
-    public boolean getState() {
+
+
+    public boolean getState()
+    {
         return state;
     }
-    
-    public void toggle() {
+
+
+    public void toggle()
+    {
         state = !state;
     }
 }
