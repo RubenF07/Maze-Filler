@@ -14,7 +14,7 @@ public class Main
     {
         Map map = new Map();
         Player player = new Player();
-        
+                
         return;
     }
 }
