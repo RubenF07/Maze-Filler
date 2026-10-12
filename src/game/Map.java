@@ -30,6 +30,11 @@ public class Map {
         // TODO
         return false;
     }
+    
+    public boolean undoMove() {
+        
+        return false;
+    }
 
 
     public void importMap(String fileName) throws FileNotFoundException {

@@ -18,6 +18,11 @@ public class Player
         // TODO
         return false;
     }
+    
+    public boolean undoMove() {
+        
+        return false;
+    }
 
 
     public Coordinate getPosition()
