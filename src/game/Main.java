@@ -1,6 +1,6 @@
 package game;
 
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * A tile-based game with the goal of activating each tile by lighting them up.
@@ -12,17 +12,16 @@ public class Main
 {
     /**
      * four direction variables to work between classes and improve readability.
-     * 
-     * @author Chris
-     * @version 12 Oct 2026
      */
     public static enum direction
     {
         UP,
-        DOWN,
         LEFT,
+        DOWN,
         RIGHT;
     }
+    
+    
 
     /**
      * Main game loop and logic.
@@ -31,9 +30,17 @@ public class Main
      */
     public static void main(String[] args)
     {
+        // variable setup
         Map map = new Map();
         Player player = new Player();
+        
+        HashMap<String, direction> moves = new HashMap<>();
+        moves.put("w", direction.UP);
+        moves.put("a", direction.LEFT);
+        moves.put("s", direction.DOWN);
+        moves.put("d", direction.RIGHT);
 
+        // importing map data
         try
         {
             map.importMap("map.txt");
@@ -44,10 +51,11 @@ public class Main
             return;
         }
 
-        System.out.print(map);
-
+        // main game loop
         while (!map.hasWon())
         {
+            System.out.println(map);
+            
             String input = validateInput();
 
             switch (input)
@@ -60,8 +68,7 @@ public class Main
                     map.undoMove();
                     break;
                 default:
-                    direction dir = direction.UP; // figure out how to map
-                                                  // strings to enum
+                    direction dir = moves.get(input);
 
                     if (map.canMove(player.getPosition(), dir))
                     {
@@ -72,13 +79,11 @@ public class Main
                         // TODO
                     }
             }
-
-            System.out.print(map);
         }
 
-        // win TODO
-
-        return;
+        // win message and potential next level
+        System.out.println(map);
+        System.out.println("You win!");
     }
 
 
@@ -106,7 +111,6 @@ public class Main
                     return command;
                 }
             }
-            
             
             System.out.println("Invalid command, try again: ")
         }
