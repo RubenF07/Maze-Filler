@@ -21,8 +21,6 @@ public class Main
         DOWN,
         RIGHT;
     }
-    
-    
 
     /**
      * Main game loop and logic.
@@ -33,28 +31,29 @@ public class Main
     {
         // variable setup
         Map map;
-        try {
+        try
+        {
             map = new Map("map1");
         }
-        catch (FileNotFoundException e) {
+        catch (FileNotFoundException e)
+        {
             System.out.println("Map import failed, shutting down.");
             return;
         }
-        
+
         Player player = new Player(map.getPlayerStart());
-        
+
         HashMap<String, direction> moves = new HashMap<>();
         moves.put("w", direction.UP);
         moves.put("a", direction.LEFT);
         moves.put("s", direction.DOWN);
         moves.put("d", direction.RIGHT);
 
-
         // main game loop
         while (!map.hasWon())
         {
             System.out.println(map);
-            
+
             String input = validateInput();
 
             switch (input)
@@ -71,11 +70,12 @@ public class Main
 
                     if (map.canMove(player.getPosition(), dir))
                     {
-                        // TODO
+                        player.move(dir);
+                        map.move(dir);
                     }
                     else
                     {
-                        // TODO
+                        System.out.println("You can't move there!");
                     }
             }
         }
@@ -93,24 +93,26 @@ public class Main
      */
     public static String validateInput()
     {
-        String[] validCommands = {"w", "a", "s", "d", "x", "quit"};
+        String[] validCommands = { "w", "a", "s", "d", "x", "quit" };
         String command = "";
         Scanner input = new Scanner(System.in);
 
         System.out.print("Input a command: ");
-        
+
         while (true)
         {
             command = input.nextLine().toLowerCase();
 
-            for (String validCommand : validCommands) {
-                if (command.equals(validCommand)) {
+            for (String validCommand : validCommands)
+            {
+                if (command.equals(validCommand))
+                {
                     input.close();
-                    
+
                     return command;
                 }
             }
-            
+
             System.out.println("Invalid command, try again: ");
         }
     }

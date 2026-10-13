@@ -15,15 +15,14 @@ public class Player
     }
 
 
-    public boolean move(direction dir)
+    public void move(direction dir)
     {
         // TODO
-        return false;
     }
     
-    public boolean undoMove() {
+    public void undoMove() {
         
-        return false;
+        // TODO
     }
 
 

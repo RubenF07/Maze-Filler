@@ -50,11 +50,18 @@ public class Map {
         return (try_tile == mapElement.TILE_OFF
             || try_tile == mapElement.TILE_ON);
     }
+    
+    public void move(direction dir) {
+        // i think this is needed to alter the tiles linkedchain
+        // also we may want to reference player in the map class
+        // or another way to communicate position, up to you
+        // TODO
+    }
 
 
-    public boolean undoMove() {
+    public void undoMove() {
 
-        return false;
+        // TODO
     }
 
 
