@@ -1,6 +1,7 @@
 package game;
 
 import java.util.*;
+import java.io.FileNotFoundException;
 
 /**
  * A tile-based game with the goal of activating each tile by lighting them up.
@@ -31,8 +32,16 @@ public class Main
     public static void main(String[] args)
     {
         // variable setup
-        Map map = new Map();
-        Player player = new Player();
+        Map map;
+        try {
+            map = new Map("map1");
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Map import failed, shutting down.");
+            return;
+        }
+        
+        Player player = new Player(map.getPlayerStart());
         
         HashMap<String, direction> moves = new HashMap<>();
         moves.put("w", direction.UP);
@@ -40,16 +49,6 @@ public class Main
         moves.put("s", direction.DOWN);
         moves.put("d", direction.RIGHT);
 
-        // importing map data
-        try
-        {
-            map.importMap("map.txt");
-        }
-        catch (Exception e)
-        {
-            System.out.println("Map import failed, shutting down.");
-            return;
-        }
 
         // main game loop
         while (!map.hasWon())
@@ -112,7 +111,7 @@ public class Main
                 }
             }
             
-            System.out.println("Invalid command, try again: ")
+            System.out.println("Invalid command, try again: ");
         }
     }
 }

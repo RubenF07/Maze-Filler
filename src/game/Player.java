@@ -5,10 +5,12 @@ import static game.Main.direction;
 public class Player
 {
     private LinkedChain<Coordinate> moves;
+    private Coordinate position;
 
-    public Player()
+    public Player(Coordinate start)
     {
         moves = new LinkedChain<>();
+        position = start;
         // TODO
     }
 
