@@ -109,7 +109,7 @@ public class Main
 
         while (true)
         {
-            String command = INPUT.nextLine().toLowerCase();
+            String command = INPUT.nextLine().toLowerCase().trim();
             for (String validCommand : validCommands)
             {
                 if (command.equals(validCommand))
