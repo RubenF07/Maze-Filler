@@ -11,30 +11,47 @@ public class Player
     {
         moves = new LinkedChain<>();
         position = start;
-        // TODO
     }
 
 
     public void move(direction dir)
     {
-        // TODO
+        int xDiff = 0;
+        int yDiff = 0;
+        switch (dir) {
+            case RIGHT:
+                xDiff = 1;
+                break;
+            case LEFT:
+                xDiff = -1;
+                break;
+            case UP:
+                yDiff = 1;
+                break;
+            case DOWN:
+                yDiff = -1;
+                break;
+        }
+        
+        moves.add(position);
+        position = new Coordinate(position.getX()+xDiff, position.getY()+yDiff);
     }
     
     public boolean canUndo() {
-        // Probably display a message before returning false
-        // No message needed for true - the move will be undone
-        // TODO
-        return false;
+        if (moves.isEmpty()) {
+            System.out.println("Invalid operation, no more past moves");
+            return false;
+        }
+        return true;
     }
     
     public void undoMove() {
-        
-        // TODO
+        position = moves.remove();
     }
 
 
     public Coordinate getPosition()
     {
-        return moves.peek();
+        return position;
     }
 }

@@ -33,7 +33,7 @@ public class Main
         Map map;
         try
         {
-            map = new Map("map1");
+            map = new Map("map1.txt");
         }
         catch (FileNotFoundException e)
         {
@@ -50,7 +50,7 @@ public class Main
         moves.put("d", direction.RIGHT);
 
         // main game loop
-        while (!map.hasWon())
+        while (!map.hasWon(player.getPosition()))
         {
             map.printMap(player.getPosition());
 
@@ -84,7 +84,7 @@ public class Main
         }
 
         // win message and potential next level
-        System.out.println(map);
+        map.printMap(player.getPosition());
         System.out.println("You win!");
     }
 
@@ -94,29 +94,24 @@ public class Main
      * 
      * @return one of six valid commands (directions, undo, quit)
      */
+    private static final Scanner INPUT = new Scanner(System.in);
+
     public static String validateInput()
     {
         String[] validCommands = { "w", "a", "s", "d", "x", "quit" };
-        String command = "";
-        Scanner input = new Scanner(System.in);
-
         System.out.print("Input a command: ");
 
         while (true)
         {
-            command = input.nextLine().toLowerCase();
-
+            String command = INPUT.nextLine().toLowerCase();
             for (String validCommand : validCommands)
             {
                 if (command.equals(validCommand))
                 {
-                    input.close();
-
                     return command;
                 }
             }
-
-            System.out.println("Invalid command, try again: ");
+            System.out.print("Invalid command, try again: ");
         }
     }
 }
