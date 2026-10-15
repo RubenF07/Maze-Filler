@@ -100,21 +100,6 @@ public class LinkedChain<T>
 
 
     /**
-     * Returns the first entry of the chain without modifying it.
-     * 
-     * @return the top entry
-     */
-    public T peek()
-    {
-        if (firstNode == null)
-        {
-            return null;
-        }
-        return firstNode.data;
-    }
-
-
-    /**
      * Removes the first occurrence of a given entry from this chain.
      *
      * @param anEntry
