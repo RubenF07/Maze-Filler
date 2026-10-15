@@ -22,6 +22,9 @@ public class Main
         RIGHT;
     }
 
+    // Scanner object for all user input
+    private static final Scanner INPUT = new Scanner(System.in);
+
     /**
      * Main game loop and logic.
      * 
@@ -62,11 +65,16 @@ public class Main
                     System.out.println("quitting...");
                     return;
                 case "x":
-                    if(player.canUndo()) {
+                    if (player.canUndo())
+                    {
                         player.undoMove();
                         map.undoMove(player.getPosition());
                     }
-                    
+                    else
+                    {
+                        System.out.println("No more moves to undo.");
+                    }
+
                     break;
                 default:
                     direction dir = moves.get(input);
@@ -94,8 +102,6 @@ public class Main
      * 
      * @return one of six valid commands (directions, undo, quit)
      */
-    private static final Scanner INPUT = new Scanner(System.in);
-
     public static String validateInput()
     {
         String[] validCommands = { "w", "a", "s", "d", "x", "quit" };
