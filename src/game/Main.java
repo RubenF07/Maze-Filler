@@ -52,7 +52,7 @@ public class Main
         // main game loop
         while (!map.hasWon())
         {
-            System.out.println(map);
+            map.printMap(player.getPosition());
 
             String input = validateInput();
 
@@ -62,16 +62,19 @@ public class Main
                     System.out.println("quitting...");
                     return;
                 case "x":
-                    player.undoMove();
-                    map.undoMove();
+                    if(player.canUndo()) {
+                        player.undoMove();
+                        map.undoMove(player.getPosition());
+                    }
+                    
                     break;
                 default:
                     direction dir = moves.get(input);
 
                     if (map.canMove(player.getPosition(), dir))
                     {
+                        map.playerMoved(player.getPosition());
                         player.move(dir);
-                        map.move(dir);
                     }
                     else
                     {

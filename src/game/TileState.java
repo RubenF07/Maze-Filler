@@ -4,9 +4,9 @@ public class TileState
 {
     private boolean state;
 
-    public TileState()
+    public TileState(boolean state)
     {
-        state = false;
+        this.state = state;
     }
 
 

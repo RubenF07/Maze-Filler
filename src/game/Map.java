@@ -12,12 +12,13 @@ public class Map {
     }
 
     private mapElement[][] map;
-    private LinkedChain<TileState> tiles;
+    private int sidelength;
+    private LinkedChain<TileState> tileHistory;
     
     private Coordinate startPos;
 
     public Map(String firstMapFile) throws FileNotFoundException {
-        tiles = new LinkedChain<>();
+        tileHistory = new LinkedChain<>();
         try{
             importMap(firstMapFile);
         }
@@ -28,8 +29,14 @@ public class Map {
 
 
     public boolean hasWon() {
-        // TODO
-        return false;
+        for(int row = 0;row<sidelength;row++) {
+            for(int col=0;col<sidelength;col++) {
+                if (map[row][col]==mapElement.TILE_OFF) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -51,17 +58,34 @@ public class Map {
             || try_tile == mapElement.TILE_ON);
     }
     
-    public void move(direction dir) {
-        // i think this is needed to alter the tiles linkedchain
-        // also we may want to reference player in the map class
-        // or another way to communicate position, up to you
-        // TODO
+    public void playerMoved(Coordinate oldPos) {
+        int row = oldPos.getX();
+        int col = sidelength - oldPos.getY() -1;
+        
+
+        // Toggle tile and add save state
+        if (map[row][col] == mapElement.TILE_OFF) {
+            tileHistory.add(new TileState(false));
+            map[row][col] = mapElement.TILE_ON;
+        }
+        else {
+            tileHistory.add(new TileState(true));
+            map[row][col] = mapElement.TILE_OFF;
+        } 
+        
     }
 
 
-    public void undoMove() {
-
-        // TODO
+    public void undoMove(Coordinate newPos) {
+        int row = newPos.getX();
+        int col = sidelength - newPos.getY() -1;
+        
+        if(tileHistory.remove().getState()) {
+            map[row][col] = mapElement.TILE_ON;
+        }
+        else {
+            map[row][col] = mapElement.TILE_OFF;
+        }
     }
 
 
@@ -77,15 +101,15 @@ public class Map {
 
                 // Initialize map
                 if (map == null) {
-                    int side = row_text.length();
-                    map = new mapElement[side][side];
+                    sidelength = row_text.length();
+                    map = new mapElement[sidelength][sidelength];
                 }
 
                 for (int col = 0; col < row_text.length(); col++) {
                      mapElement e = parseMapElement(row_text.substring(col, col + 1));
                      
                      if(e == mapElement.PLAYER_TEMP) {
-                         startPos= new Coordinate(col,row);
+                         startPos= new Coordinate(col,sidelength - row - 1);
                      }
                      
                      map[row][col] = e;
@@ -99,9 +123,32 @@ public class Map {
     }
 
 
-    public String toString() {
-        // TODO
-        return null;
+    public void printMap(Coordinate playerPos) {
+        String res = "\n";
+        
+        for(int row = 0;row<sidelength;row++) {
+            for(int col=0;col<sidelength;col++) {
+                if(playerPos.getX()==col && playerPos.getY()==(sidelength - row - 1)) {
+                    res += "P";
+                    continue;
+                }
+                
+                switch(map[row][col]) {
+                    case WALL:
+                        res += "#";
+                    case TILE_ON:
+                        res+="🔳";
+                    case TILE_OFF:
+                        res+="🔲";
+                    default:
+                        res+="x";
+                   
+                }
+                res+="\n";
+            }
+        }
+        System.out.println(res);
+        
     }
 
 
